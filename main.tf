@@ -3,6 +3,11 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "my-example-bucket-unique-name"
-  acl    = "private"
+  bucket_prefix = "infrasity-bucket" # Bucket name prefix
+  force_destroy = true               # Allow Terraform to delete non-empty buckets
+
+  tags = {
+    Name        = "infrasity-bucket"
+    Environment = var.environment
+  }
 }
